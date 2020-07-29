@@ -20,6 +20,7 @@
             <div class="col-md-6">
           <form class="calculator" name="calc">
             <div class="input-section half-width" >
+                <!-- user input part -->
                 <input class="form-control value" id="user-pin-input" name="txt" type="text">
                 <div class="numbers">
                     <div class="calc-body">
@@ -39,12 +40,13 @@
                           <div class="button" onclick="document.calc.txt.value +='3'">3</div>
                         </div>
                         <div class="calc-button-row">
-                            <div class="button" onclick="document.calc.txt.value +=''"><</div>
+                            <!-- calling a function for backspace -->
+                            <div class="button" onclick="back()"><</div>
                             <div class="button" onclick="document.calc.txt.value +='0'">0</div>
                             <div class="button" onclick="document.calc.txt.value =''">C</div>
                         </div>
                         <div>
-                            <button onclick="pinMatcher()" class="submit-btn">Submit</button>
+                            <button type="button" class="submit-btn" id="submitBtn" onclick="pinMatcher()">Submit</button>
                             <p class="action-left">3 try left</p>
                         </div>
                 </div>
@@ -64,21 +66,30 @@
             document.getElementById("generatePinNumber").value = Math.floor(1000 + Math.random() * 9000);
         }
 
-        // pic matching function
+        // pin matching function
         function pinMatcher() {
             const randomPin = document.getElementById("generatePinNumber").value;
             const userPin = document.getElementById("user-pin-input").value;
+            // if the user enters nothing, it will show an alert
             if (userPin == "") {
-                alert("you pressed the submit button without your pin. please enter your four digit number");
+                alert("you pressed the submit button without entering your pin. please enter your four digit number");
             }
+            // if the user enters the pin correctly it will show(✅ Pin Matched... Secret door is opening for you)
             else if (randomPin == userPin) {
                 document.getElementById('pin-success').style.display = 'block';
+                document.getElementById('pin-failed').style.display = 'none';
             }
+            // if the user enters the pin wrong it will show(❌ Pin Didn't Match, Please try again)
             else{
-                // document.getElementById('pin-failed').style.display = 'block';
-                notify("pin-success");
+                document.getElementById('pin-success').style.display = 'none';
+                document.getElementById('pin-failed').style.display = 'block';
             }
         }
+        // 
+        function back() {
+    var value = document.getElementById("user-pin-input").value;
+    document.getElementById("user-pin-input").value = value.substr(0, value.length - 1);
+}
     </script>
 </body>
 </html>
