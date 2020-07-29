@@ -12,47 +12,73 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="pin-generator half-width">
-                    <input class="form-control" type="text">
-                    <button class="generate-btn">Generate Pin</button>
+                    <!--pin generator part -->
+                    <input class="form-control" id="generatePinNumber" type="text">
+                    <button class="generate-btn" onclick="pinGenerator()" >Generate Pin</button>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="input-section half-width">
-                    <input class="form-control" type="text">
-                    <div class="numbers">
-                        <div class="calc-body">
-                            <div class="calc-button-row">
-                              <div class="button">7</div>
-                              <div class="button">8</div>
-                              <div class="button">9</div>
-                            </div>
-                            <div class="calc-button-row">
-                              <div class="button">4</div>
-                              <div class="button">5</div>
-                              <div class="button">6</div>
-                            </div>
-                            <div class="calc-button-row">
-                              <div class="button">1</div>
-                              <div class="button">2</div>
-                              <div class="button">3</div>
-                            </div>
-                            <div class="calc-button-row">
-                                <div class="button"><</div>
-                                <div class="button">0</div>
-                                <div class="button">C</div>
-                            </div>
-                            <div>
-                                <button type="submit" class="submit-btn">Submit</button>
-                                <p class="action-left">3 try left</p>
-                            </div>
-                    </div>
+          <form class="calculator" name="calc">
+            <div class="input-section half-width" >
+                <input class="form-control value" id="user-pin-input" name="txt" type="text">
+                <div class="numbers">
+                    <div class="calc-body">
+                        <div class="calc-button-row">
+                          <div class="button" onclick="document.calc.txt.value +='7'">7</div>
+                          <div class="button" onclick="document.calc.txt.value +='8'">8</div>
+                          <div class="button" onclick="document.calc.txt.value +='9'">9</div>
+                        </div>
+                        <div class="calc-button-row">
+                          <div class="button" onclick="document.calc.txt.value +='4'">4</div>
+                          <div class="button" onclick="document.calc.txt.value +='5'">5</div>
+                          <div class="button" onclick="document.calc.txt.value +='6'">6</div>
+                        </div>
+                        <div class="calc-button-row">
+                          <div class="button" onclick="document.calc.txt.value +='1'">1</div>
+                          <div class="button" onclick="document.calc.txt.value +='2'">2</div>
+                          <div class="button" onclick="document.calc.txt.value +='3'">3</div>
+                        </div>
+                        <div class="calc-button-row">
+                            <div class="button" onclick="document.calc.txt.value +=''"><</div>
+                            <div class="button" onclick="document.calc.txt.value +='0'">0</div>
+                            <div class="button" onclick="document.calc.txt.value =''">C</div>
+                        </div>
+                        <div>
+                            <button onclick="pinMatcher()" class="submit-btn">Submit</button>
+                            <p class="action-left">3 try left</p>
+                        </div>
                 </div>
             </div>
         </div>
+    </div>
+          </form>
         <div class="notify-section">
-            <p class="notify">❌ Pin Didn't Match, Please try again</p>
-            <p class="notify">✅ Pin Matched... Secret door is opening for you</p>
+            <p id="pin-failed" class="notify">❌ Pin Didn't Match, Please try again</p>
+            <p id="pin-success" class="notify">✅ Pin Matched... Secret door is opening for you</p>
         </div>
     </div>
+    <script>
+        //  random pin generator
+        function pinGenerator(){
+            //  get the element and then find the value then set it to whatever you need..
+            document.getElementById("generatePinNumber").value = Math.floor(1000 + Math.random() * 9000);
+        }
+
+        // pic matching function
+        function pinMatcher() {
+            const randomPin = document.getElementById("generatePinNumber").value;
+            const userPin = document.getElementById("user-pin-input").value;
+            if (userPin == "") {
+                alert("you pressed the submit button without your pin. please enter your four digit number");
+            }
+            else if (randomPin == userPin) {
+                document.getElementById('pin-success').style.display = 'block';
+            }
+            else{
+                // document.getElementById('pin-failed').style.display = 'block';
+                notify("pin-success");
+            }
+        }
+    </script>
 </body>
 </html>
