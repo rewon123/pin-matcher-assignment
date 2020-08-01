@@ -46,6 +46,7 @@
                             <div class="button" onclick="document.calc.txt.value =''">C</div>
                         </div>
                         <div>
+                            <!-- i changed the button type submit to button, because it was reloading the page by clicking the submit button -->
                             <button type="button" class="submit-btn" id="submitBtn" onclick="pinMatcher()">Submit</button>
                             <p class="action-left">3 try left</p>
                         </div>
@@ -62,9 +63,10 @@
     <script>
         //  random pin generator
         function pinGenerator(){
-            //  get the element and then find the value then set it to whatever you need..
+            //  get the element and then get the value, then set it to whatever you need..
             document.getElementById("generatePinNumber").value = Math.floor(1000 + Math.random() * 9000);
         }
+
 
         // pin matching function
         function pinMatcher() {
@@ -73,6 +75,8 @@
             // if the user enters nothing, it will show an alert
             if (userPin == "") {
                 alert("you pressed the submit button without entering your pin. please enter your four digit number");
+                document.getElementById('pin-success').style.display = 'none';
+                document.getElementById('pin-failed').style.display = 'none';
             }
             // if the user enters the pin correctly it will show(✅ Pin Matched... Secret door is opening for you)
             else if (randomPin == userPin) {
@@ -85,11 +89,13 @@
                 document.getElementById('pin-failed').style.display = 'block';
             }
         }
-        // 
+
+
+        // function for the backspace on the calculator which is the (<) symbol
         function back() {
-    var value = document.getElementById("user-pin-input").value;
-    document.getElementById("user-pin-input").value = value.substr(0, value.length - 1);
-}
+        var value = document.getElementById("user-pin-input").value;
+        document.getElementById("user-pin-input").value = value.substr(0, value.length - 1);
+        }
     </script>
 </body>
 </html>
